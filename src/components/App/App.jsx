@@ -1,7 +1,8 @@
 import { GlobalStyle } from 'GlobalStyles';
 import { Component } from 'react';
 import { FeedBack } from './App.styled';
-import { ButtonLoad } from 'components/Button/Button';
+import { ButtonLoad } from 'components/Button/Button.Styled.js';
+import { Searchbar } from 'components/Searchbar/Searchbar';
 
 export class App extends Component {
   state = {
@@ -18,14 +19,13 @@ export class App extends Component {
 
   render() {
     return (
-      <FeedBack>
-        <form>
-          <input type="text" name="query" />
-          <button type="submit">Search</button>
-        </form>
-        <ButtonLoad onClick={this.hendleLoadMore} />
-        <GlobalStyle />
-      </FeedBack>
+      <>
+        <FeedBack>
+          <Searchbar />
+          <ButtonLoad onClick={this.hendleLoadMore} />
+          <GlobalStyle />
+        </FeedBack>
+      </>
     );
   }
 }
