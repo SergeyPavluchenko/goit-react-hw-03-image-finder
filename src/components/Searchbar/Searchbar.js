@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import toast, { Toaster } from 'react-hot-toast';
 import {
   SearchForm,
@@ -16,7 +16,7 @@ export class Searchbar extends Component {
   };
 
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+    onSubmit: propTypes.func.isRequired,
   };
   handleImageNameChange = event => {
     this.setState({ imageName: event.currentTarget.value.toLowerCase() });
@@ -45,8 +45,10 @@ export class Searchbar extends Component {
           <SearchFormInput
             type="text"
             autocomplete="off"
-            autofocus
+            autoFocus
             placeholder="Search images and photos"
+            value={this.state.imageName}
+            onChange={this.handleImageNameChange}
           />
         </SearchForm>
         <Toaster position="top-center" />
