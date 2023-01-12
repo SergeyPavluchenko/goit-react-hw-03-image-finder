@@ -1,10 +1,10 @@
 import { Component } from 'react';
-import { fetchPictureHits } from 'components/API';
 import { FeedBack } from './App.styled';
 import { ButtonLoad } from 'components/Button/Button.Styled.js';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Spiner } from 'components/Loader/Loader';
+import { fetchPictureHits } from 'components/API.js';
 
 export class App extends Component {
   state = {
