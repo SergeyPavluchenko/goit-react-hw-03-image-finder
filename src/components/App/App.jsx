@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { fetchPictureHits } from '../api';
+import { fetchPictureHits } from 'components/api';
 import { FeedBack } from './App.styled';
 import { ButtonLoad } from 'components/Button/Button.Styled.js';
 import { Searchbar } from 'components/Searchbar/Searchbar';
