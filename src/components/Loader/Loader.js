@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import { Oval } from 'react-loader-spinner';
+import { Loader } from 'components/Loader/Loader.styled';
 
-export class Spiner extends Component {
+export class Spinner extends Component {
   render() {
     return (
-      <div>
+      <Loader>
         <Oval
           height={80}
           width={80}
@@ -17,7 +18,7 @@ export class Spiner extends Component {
           strokeWidth={2}
           strokeWidthSecondary={2}
         />
-      </div>
+      </Loader>
     );
   }
 }

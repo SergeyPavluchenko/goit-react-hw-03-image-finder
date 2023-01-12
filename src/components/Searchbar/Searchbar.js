@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import propTypes from 'prop-types';
 import toast, { Toaster } from 'react-hot-toast';
+import { BsSearch } from 'react-icons/bs';
+import PropTypes from 'prop-types';
 import {
   SearchForm,
   SearchFormInput,
@@ -8,53 +9,50 @@ import {
   SearchbarBlock,
   SearchFormButtonLabel,
 } from './Searchbar.styled';
-import { BsSearch } from 'react-icons/bs';
 
-export class Searchbar extends Component {
+export class SearchBar extends Component {
   state = {
     imageName: '',
   };
 
   static propTypes = {
-    onSubmit: propTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
   };
   handleImageNameChange = event => {
     this.setState({ imageName: event.currentTarget.value.toLowerCase() });
   };
   handleSubmit = event => {
     event.preventDefault();
-    if (this.setState.imageName.trim() === '') {
-      toast(`enter the name of the photo or picture`);
+    if (this.state.imageName.trim() === '') {
+      toast(`Enter the name of the picture`);
       return;
     }
 
     this.props.onSubmit(this.state.imageName);
     this.setState({ imageName: '' });
   };
-
   render() {
     return (
       <SearchbarBlock>
-        <SearchForm>
+        <SearchForm onSubmit={this.handleSubmit}>
           <SearchFormButton type="submit">
             <div>
               <BsSearch size={30} />
             </div>
             <SearchFormButtonLabel>Search</SearchFormButtonLabel>
           </SearchFormButton>
+
           <SearchFormInput
             type="text"
-            autocomplete="off"
+            autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
             value={this.state.imageName}
             onChange={this.handleImageNameChange}
           />
         </SearchForm>
-        <Toaster position="top-center" />
+        <Toaster position="top-right" />
       </SearchbarBlock>
     );
   }
 }
-
-// FcSearch;

@@ -5,24 +5,23 @@ import PropTypes from 'prop-types';
 export const ImageGallery = ({ images }) => {
   return (
     <ImageGalleryUl>
-      {images.map(({ id, webformatURL, largeImagesURL, tags }) => (
+      {images.map(({ id, webformatURL, largeImageURL, tags }) => (
         <ImageGalleryItem
           key={id}
           webformatURL={webformatURL}
-          largeImagesURL={largeImagesURL}
+          largeImageURL={largeImageURL}
           tags={tags}
         />
       ))}
     </ImageGalleryUl>
   );
 };
-
 ImageGallery.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       webformatURL: PropTypes.string,
-      largeImagesURL: PropTypes.string,
+      largeImageURL: PropTypes.string,
       tags: PropTypes.string,
     })
   ).isRequired,

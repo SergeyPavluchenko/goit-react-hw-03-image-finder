@@ -1,16 +1,16 @@
 import { Component } from 'react';
 import { FeedBack } from './App.styled';
-import { ButtonLoad } from 'components/Button/Button.Styled.js';
-import { Searchbar } from 'components/Searchbar/Searchbar';
+import { ButtonLoad } from 'components/Button/Button.js';
+import { SearchBar } from 'components/Searchbar/Searchbar.js';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
-import { Spiner } from 'components/Loader/Loader';
-import { fetchPictureHits } from 'components/API.js';
+import { Spinner } from 'components/Loader/Loader';
+import { fetchPictureByHits } from 'components/API.js';
 
 export class App extends Component {
   state = {
     images: [],
-    isLoader: false,
     query: '',
+    isLoading: false,
     error: null,
     page: 1,
   };
@@ -21,8 +21,9 @@ export class App extends Component {
 
     if (prevQuery !== currentQuery || prevPage !== currentPage) {
       this.setState({ isLoading: true });
-      fetchPictureHits(currentPage, currentQuery)
+      fetchPictureByHits(currentQuery, currentPage)
         .then(images => {
+          console.log(images);
           this.setState(prevState => ({
             images: [...prevState.images, ...images],
           }));
@@ -30,11 +31,10 @@ export class App extends Component {
         .catch(error =>
           this.setState({ error: error.message, isLoading: false })
         )
-        .finaly(() => this.setState({ isLoading: false }));
+        .finally(() => this.setState({ isLoading: false }));
     }
   }
-
-  hendleFormSubmit = query => {
+  handleFormSubmit = query => {
     this.setState({
       query,
       images: [],
@@ -42,19 +42,19 @@ export class App extends Component {
     });
   };
 
-  hendleLoadMore = () => {
-    this.setSate(prevState => ({ page: prevState.page + 1 }));
+  handleLoadMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   render() {
     return (
       <FeedBack>
-        <Searchbar onSubmit={this.hendleFormSubmit} />
-        {this.state.isLoading && <Spiner />}
+        <SearchBar onSubmit={this.handleFormSubmit} />
+        {this.state.isLoading && <Spinner />}
         {this.state.images.length > 0 && (
           <>
             <ImageGallery images={this.state.images} />
-            <ButtonLoad onClick={this.hendleLoadMore} />
+            <ButtonLoad onClick={this.handleLoadMore} />
           </>
         )}
       </FeedBack>
