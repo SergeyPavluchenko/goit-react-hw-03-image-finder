@@ -5,6 +5,7 @@ import { SearchBar } from 'components/Searchbar/Searchbar.js';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Spinner } from 'components/Loader/Loader';
 import { fetchPictureByHits } from 'components/API.js';
+import { toast } from 'react-hot-toast';
 
 export class App extends Component {
   state = {
@@ -29,11 +30,15 @@ export class App extends Component {
           }));
         })
         .catch(error =>
-          this.setState({ error: error.message, isLoading: false })
+          this.setState({
+            error: toast.error('Try reloading the page.'),
+            isLoading: false,
+          })
         )
         .finally(() => this.setState({ isLoading: false }));
     }
   }
+
   handleFormSubmit = query => {
     this.setState({
       query,
@@ -47,16 +52,13 @@ export class App extends Component {
   };
 
   render() {
+    const { isLoading, images } = this.state;
     return (
       <FeedBack>
         <SearchBar onSubmit={this.handleFormSubmit} />
-        {this.state.isLoading && <Spinner />}
-        {this.state.images.length > 0 && (
-          <>
-            <ImageGallery images={this.state.images} />
-            <ButtonLoad onClick={this.handleLoadMore} />
-          </>
-        )}
+        {isLoading && <Spinner />}
+        {images.length > 0 && <ImageGallery images={images} />}
+        {images.length > 12 && <ButtonLoad onClick={this.handleLoadMore} />}
       </FeedBack>
     );
   }
